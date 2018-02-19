@@ -1,3 +1,4 @@
+
 node {
 
    stage('Clone Repository') {
@@ -6,24 +7,24 @@ node {
 
    }
    stage('Build Maven Image') {
-        docker.build("eureka-server")
-         }
+        docker.build("maven-build")
+   }
 
    stage('Run Maven Container') {
 
-        //Remove eureka-server-container if it exisits
-        sh "docker rm -f eureka-server-container"
+        //Remove maven-build-container if it exisits
+        sh " docker rm -f maven-build-container"
 
         //Run maven image
-        sh "docker run --rm --name eureka-server-container maven-build"
+        sh "docker run --rm --name maven-build-container maven-build"
    }
 
    stage('Deploy Spring Boot Application') {
 
-         //Remove eureka-server-container if it exisits
-        sh " docker rm -f eureka-server-deploy-container"
+         //Remove maven-build-container if it exisits
+        sh " docker rm -f java-deploy-container"
 
-        sh "docker run --name eureka-server-deploy-container --volumes-from eureka-server-container -d -p 8761:8761 cordis/eureka-server-deploy"
+        sh "docker run --name java-deploy-container --volumes-from maven-build-container -d -p 8080:8080 denisdbell/petclinic-deploy"
    }
 
 }
