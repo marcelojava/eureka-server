@@ -12,7 +12,7 @@ node {
    stage('Run Maven Container') {
 
         //Remove eureka-server-container if it exisits
-        sh " docker rm -f eureka-server-container"
+        sh "docker rm -f eureka-server-container"
 
         //Run maven image
         sh "docker run --rm --name eureka-server-container maven-build"
