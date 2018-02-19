@@ -6,7 +6,7 @@ node {
 
    }
    stage('Build Maven Image') {
-        docker.build("maven-build")
+        docker.build("eureka-server")
          }
 
    stage('Run Maven Container') {
