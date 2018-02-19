@@ -7,8 +7,7 @@ node {
 
    }
    stage('Build Maven Image') {
-        docker.build("maven-build")
-        }
+        docker.build("maven-build-container")
    }
 
    stage('Run Maven Container') {
